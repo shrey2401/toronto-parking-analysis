@@ -170,7 +170,7 @@ Output:
 
 ---
 
-## Your Project is Now Complete! ✅
+## Project is Now Complete! ✅
 ```
 toronto-parking-analysis/
 ├── data/
