@@ -1,0 +1,26 @@
+# Python cache files
+*.pyc
+__pycache__/
+
+# Virtual environment
+venv/
+env/
+
+# IDE settings
+.vscode/
+.idea/
+
+# Operating System
+.DS_Store
+Thumbs.db
+
+# Project sensitive files
+*.csv
+.env
+credentials.txt
+mysql_config.py
+*.log
+
+# Output folders
+sql_outputs/
+data/

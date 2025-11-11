@@ -1,0 +1,196 @@
+toronto-parking-analysis/
+│
+├── data/
+│   └── parking-tickets-2024_1/     
+│
+├── scripts/
+│   └── data_cleaning.py
+│   └── insights.py
+│   └── db_upload.py
+│
+├── visuals/
+│
+├── requirements.txt
+│
+└── README.md
+
+Set up project folder
+
+Made folders: data/, scripts/, visuals/
+
+Put CSV files in data/
+
+Set up Python environment
+
+Created a virtual environment venv
+
+Installed needed libraries: pandas, numpy, matplotlib, seaborn, mysql-connector-python
+
+Load the CSV file
+
+Read one month of parking ticket data into Python using pandas.read_csv()
+
+Checked the dataset with df.info() and df.head()
+
+Clean the data
+
+Converted date_of_infraction to a proper date format (YYYY-MM-DD)
+
+Converted time_of_infraction to "HH:MM"
+
+Combined all location columns (location1–4) into one column full_location
+
+Dropped columns not needed for analysis: tag_number_masked, location1–4, province
+
+Preview cleaned data
+
+Looked at first few rows to make sure it looks correct
+
+Save cleaned dataset
+
+Exported the cleaned data as parking_tickets_cleaned.csv in the data/ folder
+
+This cleaned CSV is ready for analysis, dashboard, or MySQL upload
+Counted how many times each infraction_description appears
+
+Selected the top 10 most frequent violations
+
+Plotted a horizontal bar chart using Seaborn/Matplotlib
+
+Saved chart as top_violations.png in visuals/ folder
+
+Extracted street names from full location text using regex
+
+Counted number of tickets per street
+
+Visualized top 10 most ticketed streets
+
+Saved chart as top_streets.png
+
+What db_upload.py does:
+  - Creates MySQL database: toronto_parking_db
+  - Creates table: parking_tickets (with columns for date, infraction, fine, location, etc.)
+  - Reads parking_tickets_cleaned.csv from data/ folder
+  - Uploads all 142,881 records into MySQL database
+  - Verifies upload by checking row count and showing sample rows
+
+How it works:
+  Step 1: create_database() → Creates empty warehouse (database)
+  Step 2: create_table() → Creates labeled shelves (table structure)
+  Step 3: upload_data() → Moves all data from CSV into MySQL
+  Step 4: verify_upload() → Confirms all 142,881 records arrived correctly
+
+Result: ✅ 142,881 records successfully uploaded to MySQL database
+STEP 9: Create SQL Query Bridge (python_sql_queries.py)
+───────────────────────────────────────────────────────
+What python_sql_queries.py does:
+  - Creates a TorontoParkingDB class (helper toolbox)
+  - Connects to MySQL database
+  - Has pre-built query methods ready to use
+
+Pre-built Methods:
+  - get_summary_stats() → Overall statistics
+  - get_top_infractions(limit) → Most common violations
+  - get_by_ward() → Grouped by ward (EMPTY - no ward data)
+  - get_by_date() → Grouped by date
+  - get_fine_distribution() → Fine ranges ($50, $100, etc.)
+
+How it works:
+  Instead of writing connection code every time, you just call:
+  db = TorontoParkingDB(password='your_password')
+  db.connect()
+  df = db.get_top_infractions(10)
+  
+Result: ✅ Easy way to query database from Python
+
+
+STEP 10: Write Raw SQL Queries (sql_analysis.sql)
+──────────────────────────────────────────────────
+Created 10 SQL queries in sql_analysis.sql:
+  1. Basic database check
+  2. Summary statistics
+  3. Top 15 infraction types
+  4. Tickets by ward (EMPTY - no ward data)
+  5. Monthly trend analysis
+  6. Fine amount distribution
+  7. Street analysis (EMPTY - no street data)
+  8. Day of week analysis
+  9. Geospatial summary (EMPTY - no coordinates)
+  10. Data quality check
+
+How to use:
+  - Open MySQL Workbench
+  - Copy any query from sql_analysis.sql
+  - Run it to see results
+
+Data Quality Found:
+  - 142,881 total records ✓
+  - All have dates ✓
+  - All have fines ✓
+  - NO ward data ✗
+  - NO street names ✗
+  - NO coordinates ✗
+
+
+STEP 11: Advanced Analysis & Charts (advanced_analysis.py)
+──────────────────────────────────────────────────────────
+Created 5 charts from database queries:
+
+Chart 1: Top 15 Infraction Types (Horizontal Bar)
+  - Shows most common parking violations
+  - PARK ON PRIVATE PROPERTY: 26,965 tickets (most common)
+
+Chart 2: Fine Distribution (Pie Chart)
+  - Shows how many tickets in each price range
+  - Example: 45% are Under $50, 30% are $50-$100, etc.
+
+Chart 3: Monthly Trend (Line Chart)
+  - Shows how many tickets per month
+  - Helps identify busy/slow months
+
+Chart 4: Average Fine by Infraction (Horizontal Bar)
+  - Shows which violations have highest average fines
+  - Example: STOP violations are $190, PARK violations are $45
+
+Chart 5: Day of Week (Bar Chart)
+  - Shows which days have most tickets
+  - Example: Monday vs Friday comparison
+
+Summary Statistics:
+  - Total tickets: 142,881
+  - Unique dates: 31 (one month of data)
+  - Average fine: $77.55
+  - Min fine: $0
+  - Max fine: $500
+
+Output:
+  - 5 PNG files in visuals/ folder
+  - summary_statistics.txt in sql_outputs/ folder
+```
+
+---
+
+## Your Project is Now Complete! ✅
+```
+toronto-parking-analysis/
+├── data/
+│   └── parking_tickets_cleaned.csv ✓
+├── scripts/
+│   ├── data_cleaning.py ✓
+│   ├── insights.py ✓
+│   ├── db_upload.py ✓
+│   ├── python_sql_queries.py ✓
+│   └── advanced_analysis.py ✓
+├── sql_outputs/
+│   └── summary_statistics.txt ✓
+├── visuals/
+│   ├── chart1_top_infractions.png ✓
+│   ├── chart2_fine_distribution.png ✓
+│   ├── chart3_temporal_trend.png ✓
+│   ├── chart4_avg_fine_by_infraction.png ✓
+│   ├── chart5_day_of_week.png ✓
+│   └── (previous 2 charts) ✓
+├── requirements.txt ✓
+├── README.md ✓
+├── .gitignore ✓
+└── sql_analysis.sql ✓
